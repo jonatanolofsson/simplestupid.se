@@ -41,7 +41,7 @@ def getMenu(mdfile, startDirectory, endDirectory, level = 0):
     if endDirectory != startDirectory:
         (output, maxlevel) = getMenu(mdfile, startDirectory, os.path.dirname(endDirectory), level+1)
 
-    output += '<ol class="menulevel{level}">\n'.format(level=maxlevel-level) \
+    output += '<ol class="menu menulevel{level}">\n'.format(level=maxlevel-level) \
     + "\n".join(['<li class="{cssclass}"><a href="{link}">{name}</a></li>'.format(
         link = link,
         name = name,
