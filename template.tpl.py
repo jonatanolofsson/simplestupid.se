@@ -16,6 +16,10 @@ def header(environ, fmt):
 
 def footer(environ, fmt = {}):
     return """
+<hr class="footerrule" />
+<div id="footerinfo">
+This is the website of Jonatan Olofsson.
+</div>
 </div>
 </div>
 </body>
