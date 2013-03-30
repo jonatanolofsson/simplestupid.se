@@ -12,7 +12,7 @@ def getMenu(startDirectory, endDirectory, level = 0):
     output += '<ol class="menulevel{level}">'.format(level=level) + "".join(['<li><a href="{link}">{name}</a></li>'.format(
         link = os.path.relpath(os.path.abspath(filename), htdocs),
         name = re.match('^([0-9])*-?(.*)$', os.path.basename(filename)).group(1)
-    ) for filename in os.listdir(endDirectory)] + "</ol>")
+    ) for filename in os.listdir(endDirectory)]) + '</ol>'
 
     if level == 0:
         return output
