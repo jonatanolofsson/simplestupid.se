@@ -20,10 +20,20 @@ body {
     margin: 0 0 0 0.3em;
 }
 
+#menuwrapper {
+    display: inline;
+}
+
 ol.menu {
     list-style: none;
+    display: inline;
 }
 
 ol.menu li {
     float: left;
+    padding: 0 4px;
+}
+
+ol.menulevel0 {
+    background: #DFCB8C;
 }
