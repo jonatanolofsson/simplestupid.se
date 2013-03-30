@@ -7,10 +7,10 @@ def header(environ, fmt):
 <title>{title}</title>
 </head>
 <body>
-<div class="content">
-<div class="header"><span class="keepit">Keep It</span><span class="simplestupid">Simple Stupid</span></div>
-<div class="menu">{menu}</div>
-<div class="body">
+<div id="wrapper">
+<div id="header"><span id="keepit">Keep It</span><span id="simplestupid">Simple Stupid</span></div>
+<div id="menu">{menu}</div>
+<div id="content">
 """.format(**fmt)
 
 def footer(environ, fmt = {}):
