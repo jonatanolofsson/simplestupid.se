@@ -26,7 +26,8 @@ body {
 
 ol.menu {
     list-style: none;
-    display: inline;
+    display: inline-block;
+    width: 100%;
 }
 
 ol.menu li {
@@ -35,5 +36,12 @@ ol.menu li {
 }
 
 ol.menulevel0 {
-    background: #DFCB8C;
+    background: rgb(255, 244, 210);
+}
+
+ol.menu a {
+    text-decoration: none;
+}
+ol.menu a:hover {
+    text-decoration: underline;
 }
