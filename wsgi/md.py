@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-import os, markdown2, imp
+import os, markdown2, imp, re
 siteroot = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 htdocs = os.path.join(siteroot, 'htdocs')
 tplname = 'template.tpl.py'
@@ -11,7 +11,7 @@ def getMenu(startDirectory, endDirectory, level = 0):
 
     output += '<ol class="menulevel{level}">'.format(level=level) + "".join(['<li><a href="{link}">{name}</a></li>'.format(
         link = os.path.relpath(os.path.abspath(filename), htdocs),
-        name = os.path.basename(filename).split('-', 2)[1]
+        name = re.match('^([0-9])*-?(.*)$', os.path.basename(filename).split('-', 2)).group(1)
     ) for filename in os.listdir(endDirectory)] + "</ol>")
 
     if level == 0:
