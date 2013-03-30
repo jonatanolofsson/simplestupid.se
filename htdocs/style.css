@@ -1,3 +1,22 @@
 body {
-    background: #A3E5FF;
+    background: #ffffff;
 }
+
+#wrapper {
+    background-color: rgba(255, 255, 255, 0.98);
+    width: 768px;
+    margin: 0 auto;
+}
+
+#keepit {
+    width: 100%;
+    display: block;
+    margin: 0;
+}
+
+#simplestupid {
+    font-family: "Courier New";
+    font-size: 3em;
+    margin: 0 0 0 0.3em;
+}
+
