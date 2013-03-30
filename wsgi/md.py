@@ -81,10 +81,10 @@ def application(environ, start_response):
         output += template.footer(environ)
 
     # send first header and status
-    #~ status = '200 OK'
-    #~ headers = [('Content-type', 'text/html'),
-        #~ ('Content-Length', str(len(output)))]
-    #~ start_response(status, headers)
+    status = '200 OK'
+    headers = [('Content-type', 'text/html'),
+        ('Content-Length', str(len(output)))]
+    start_response(status, headers)
 
     # wsgi apps should return and iterable, the following is acceptable too :
     # return [output]
