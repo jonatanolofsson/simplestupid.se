@@ -5,7 +5,7 @@ htdocs = os.path.join(siteroot, 'htdocs')
 tplname = 'template.tpl.py'
 
 def getLink(to):
-    return os.path.relpath(to, htdocs)
+    return "/" + os.path.relpath(to, htdocs)
 
 def validLink(lnk):
     return isMarkdown(lnk) or (os.path.isdir(lnk) and any(map(validLink, os.listdir(x))))
@@ -81,10 +81,11 @@ def application(environ, start_response):
         output += template.footer(environ)
 
     # send first header and status
-    status = '200 OK'
-    headers = [('Content-type', 'text/html'),
-        ('Content-Length', str(len(output)))]
-    start_response(status, headers)
+    if start_response is not None:
+        status = '200 OK'
+        headers = [('Content-type', 'text/html'),
+            ('Content-Length', str(len(output)))]
+        start_response(status, headers)
 
     # wsgi apps should return and iterable, the following is acceptable too :
     # return [output]
