@@ -28,6 +28,7 @@ ol.menu {
     list-style: none;
     display: inline-block;
     width: 100%;
+    margin: 0;
 }
 
 ol.menu li {
@@ -35,13 +36,18 @@ ol.menu li {
     padding: 0 4px;
 }
 
-ol.menulevel0 {
-    background: rgb(255, 244, 210);
-}
-
 ol.menu a {
     text-decoration: none;
 }
 ol.menu a:hover {
     text-decoration: underline;
+}
+
+
+ol.menulevel0 {
+    background: rgb(128, 128, 128);
+}
+
+ol.menulevel1 {
+    background: rgb(233, 233, 233);
 }
