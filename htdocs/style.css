@@ -39,6 +39,7 @@ ol.menu li {
 ol.menu a {
     text-decoration: none;
     color: #000000;
+    font-size: 14px;
 }
 ol.menu a:hover {
     text-decoration: underline;
