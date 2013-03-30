@@ -1,28 +1,62 @@
 #-*- coding: utf-8 -*-
 import os, markdown2, imp, re
-siteroot = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+siteroot = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 htdocs = os.path.join(siteroot, 'htdocs')
 tplname = 'template.tpl.py'
 
-def getMenu(startDirectory, endDirectory, level = 0):
-    output = ""
-    if endDirectory != startDirectory:
-        (output, level) = getMenu(startDirectory, os.path.dirname(endDirectory), level)
+def getLink(to):
+    return os.path.relpath(to, htdocs)
 
-    output += '<ol class="menulevel{level}">'.format(level=level) \
-    + "".join(['<li><a href="{link}">{name}</a></li>'.format(
-        link = os.path.relpath(os.path.join(endDirectory, filename), htdocs),
-        name = re.match('^([0-9]*)-?(.*).md$', os.path.basename(filename)).group(2).capitalize(),
-    ) for filename in os.listdir(endDirectory)]) + '</ol>'
+def validLink(lnk):
+    return isMarkdown(lnk) or (os.path.isdir(lnk) and any(map(validLink, os.listdir(x))))
+
+def isMarkdown(filename):
+    return (not os.path.isdir(filename) and filename.endswith('.md'))
+
+def readStructure(directory):
+    mdfiles = []
+    directories = []
+    for root, dirnames, filenames in os.walk(directory):
+      for filename in filter(isMarkdown, filenames):
+          mdfiles.append(os.path.join(root, filename))
+    mdfiles.sort()
+    return mdfiles
+
+def getLinks(directory):
+    mdfiles = list(readStructure(directory))
+    links = []
+    for f in map(lambda x: os.path.join(directory, x), filter(lambda x: (os.path.isdir(os.path.join(directory, x)) or isMarkdown(x)), sorted(os.listdir(directory)))):
+        for m in mdfiles:
+            if m.startswith(f):
+                links.append((getName(f), getLink(m), m))
+                break
+    return links
+
+def getName(filename):
+    return re.match('^([0-9]*).?(.*?)(.md)?$', os.path.basename(filename)).group(2).capitalize()
+
+def getMenu(mdfile, startDirectory, endDirectory, level = 0):
+    output = ""
+    maxlevel = level
+    if endDirectory != startDirectory:
+        (output, maxlevel) = getMenu(mdfile, startDirectory, os.path.dirname(endDirectory), level+1)
+
+    output += '<ol class="menulevel{level}">\n'.format(level=maxlevel-level) \
+    + "\n".join(['<li class="{cssclass}"><a href="{link}">{name}</a></li>'.format(
+        link = link,
+        name = name,
+        cssclass = 'active' if mdfile.startswith(filename) else 'normal'
+    ) for name,link,filename in getLinks(endDirectory)]) \
+    + '\n</ol>'
 
 
     if level == 0:
         return output
     else:
-        return (output, level+1)
+        return (output, maxlevel)
 
 
-def wsgi_app(environ, start_response):
+def application(environ, start_response):
     output = ""
     mdfile = os.path.join(htdocs, environ['REDIRECT_URL'].lstrip('/'))
     tpldir = os.path.dirname(mdfile)
@@ -35,7 +69,10 @@ def wsgi_app(environ, start_response):
         template = imp.load_source('template', tpl)
 
     if "header" in dir(template):
-        output += template.header(environ, {'title': mdfile, 'menu': getMenu(htdocs, os.path.dirname(mdfile))})
+        output += template.header(environ, {
+            'title': mdfile,
+            'menu': getMenu(mdfile, htdocs, os.path.dirname(mdfile))
+        })
 
     with open(mdfile) as f:
         output +=  markdown2.markdown(f.read())
@@ -44,14 +81,16 @@ def wsgi_app(environ, start_response):
         output += template.footer(environ)
 
     # send first header and status
-    status = '200 OK'
-    headers = [('Content-type', 'text/html'),
-        ('Content-Length', str(len(output)))]
-    start_response(status, headers)
+    #~ status = '200 OK'
+    #~ headers = [('Content-type', 'text/html'),
+        #~ ('Content-Length', str(len(output)))]
+    #~ start_response(status, headers)
 
     # wsgi apps should return and iterable, the following is acceptable too :
     # return [output]
     yield output
 
-# mod_wsgi need the *application* variable to serve our small app
-application = wsgi_app
+if __name__ == '__main__':
+    #~ for r in application({'REDIRECT_URL': '/000-start.md'}, None):
+    for r in application({'REDIRECT_URL': '/01.helicopter/00.helicopter.md'}, None):
+        print(r)
