@@ -9,9 +9,10 @@ def getMenu(startDirectory, endDirectory, level = 0):
     if endDirectory != startDirectory:
         (output, level) = getMenu(startDirectory, os.path.dirname(endDirectory), level)
 
-    output += '<ol class="menulevel{level}">'.format(level=level) + "".join(['<li><a href="{link}">{name}</a></li>'.format(
+    output += '<ol class="menulevel{level}">'.format(level=level) \
+    + "".join(['<li><a href="{link}">{name}</a></li>'.format(
         link = os.path.relpath(os.path.abspath(filename), htdocs),
-        name = re.match('^([0-9])*-?(.*)$', os.path.basename(filename)).group(1)
+        name = re.match('^([0-9]*)-?(.*).md$', os.path.basename(filename)).group(1).capitalize()
     ) for filename in os.listdir(endDirectory)]) + '</ol>'
 
     if level == 0:
