@@ -7,6 +7,7 @@ def header(environ, fmt):
 <title>{title}</title>
 </head>
 <body>
+<div class="content">
 <div class="header"><span class="keepit">Keep It</span><span class="simplestupid">Simple Stupid</span></div>
 <div class="menu">{menu}</div>
 <div class="body">
@@ -14,6 +15,7 @@ def header(environ, fmt):
 
 def footer(environ, fmt = {}):
     return """
+</div>
 </div>
 </body>
 </html>
