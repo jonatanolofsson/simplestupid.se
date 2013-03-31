@@ -70,7 +70,7 @@ def application(environ, start_response):
 
     if "header" in dir(template):
         output += template.header(environ, {
-            'title': mdfile,
+            'title': os.path.relpath(mdfile, htdocs)[0:-3].replace('/', ' / '),
             'menu': getMenu(mdfile, htdocs, os.path.dirname(mdfile))
         })
 
