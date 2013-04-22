@@ -10,7 +10,7 @@ if markdownVersion == 1:
     markdownExtensions = []
 else:
     import markdown2
-    markdownExtensions = ['extra', 'codehilite', 'headerid', 'meta', 'sane_lists']
+    markdownExtensions = ['extra', 'codehilite', 'headerid', 'meta', 'sane_lists', 'mathjax']
 
 def getLink(to):
     return "/" + os.path.relpath(to, htdocs)
