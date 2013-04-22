@@ -1,8 +1,16 @@
 #-*- coding: utf-8 -*-
-import os, markdown2, imp, re
+import os, imp, re
 siteroot = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 htdocs = os.path.join(siteroot, 'htdocs')
 tplname = 'template.tpl.py'
+markdownVersion = 1
+
+if markdownVersion == 1:
+    import markdown
+    markdownExtensions = []
+else:
+    import markdown2
+    markdownExtensions = ['extra', 'codehilite', 'headerid', 'meta', 'sane_lists']
 
 def getLink(to):
     return "/" + os.path.relpath(to, htdocs)
@@ -75,7 +83,11 @@ def application(environ, start_response):
         })
 
     with open(mdfile) as f:
-        output +=  markdown2.markdown(f.read())
+        if markdownVersion == 1:
+            output +=  markdown.markdown(f.read(), extensions=markdownExtensions)
+        else:
+            output +=  markdown2.markdown(f.read(), extra=markdownExtensions)
+
 
     if "footer" in dir(template):
         output += template.footer(environ)
