@@ -20,7 +20,7 @@ def application(environ, start_response):
         headers = [('Location', imageUrl)]
         start_response(status, headers)
 
-    yield None
+    yield ''
 
 
 
