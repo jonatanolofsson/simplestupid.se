@@ -7,10 +7,10 @@ markdownVersion = 1
 
 if markdownVersion == 1:
     import markdown
-    markdownExtensions = []
+    markdownExtensions = ['extra', 'codehilite', 'headerid', 'meta', 'sane_lists']
 else:
     import markdown2
-    markdownExtensions = ['extra', 'codehilite', 'headerid', 'meta', 'sane_lists', 'mathjax']
+    markdownExtensions = []
 
 def getLink(to):
     return "/" + os.path.relpath(to, htdocs)
@@ -96,12 +96,14 @@ def application(environ, start_response):
     if start_response is not None:
         status = '200 OK'
         headers = [('Content-type', 'text/html'),
-            ('Content-Length', str(len(output)))]
+            ('Content-Length', str(len(output))),
+            ('Content-type', 'application/xml; charset=utf-8')
+        ]
         start_response(status, headers)
 
     # wsgi apps should return and iterable, the following is acceptable too :
     # return [output]
-    yield output
+    yield output.encode('utf-8')
 
 if __name__ == '__main__':
     #~ for r in application({'REDIRECT_URL': '/000-start.md'}, None):
