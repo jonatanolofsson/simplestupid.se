@@ -7,7 +7,7 @@ markdownVersion = 1
 
 if markdownVersion == 1:
     import markdown
-    markdownExtensions = ['extra', 'codehilite', 'headerid', 'meta', 'sane_lists']
+    markdownExtensions = ['extra', 'codehilite(linenums=inline)', 'headerid', 'meta', 'sane_lists']
 else:
     import markdown2
     markdownExtensions = []

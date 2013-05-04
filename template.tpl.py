@@ -3,10 +3,11 @@ def header(environ, fmt):
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet" />
+<link href="/markdown.css" rel="stylesheet" type="text/css" />
+<link href="/solarized.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="/style.css" />
 <script type="text/x-mathjax-config">
-MathJax.Hub.Config({{tex2jax: {{inlineMath: [['$','$'], ['\\(','\\)']]}}}});
+MathJax.Hub.Config({{tex2jax: {{inlineMath: [['$','$']]}}}});
 </script>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <title>{title}</title>
