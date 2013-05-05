@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-import os, imp, re
+import os, imp, re, codecs
 siteroot = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 htdocs = os.path.join(siteroot, 'htdocs')
 tplname = 'template.tpl.py'
@@ -82,7 +82,7 @@ def application(environ, start_response):
             'menu': getMenu(mdfile, htdocs, os.path.dirname(mdfile))
         })
 
-    with open(mdfile) as f:
+    with codecs.open(mdfile, 'r', 'utf-8') as f:
         if markdownVersion == 1:
             output +=  markdown.markdown(f.read(), extensions=markdownExtensions)
         else:
