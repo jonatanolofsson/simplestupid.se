@@ -41,7 +41,7 @@ def getLinks(directory):
     return links
 
 def getName(filename):
-    return re.match('^([0-9]*).?(.*?)(.md)?$', os.path.basename(filename)).group(2).capitalize()
+    return re.match('^([0-9]*).?(.*?)(.md)?$', os.path.basename(filename)).group(2).replace('_', ' ').capitalize()
 
 def getMenu(mdfile, startDirectory, endDirectory, level = 0):
     output = ""
