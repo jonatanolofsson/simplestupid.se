@@ -2,7 +2,8 @@ def header(environ, fmt):
     return """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link href="/markdown.css" rel="stylesheet" type="text/css" />
 <link href="/solarized.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="/style.css" />
