@@ -15,7 +15,7 @@ MathJax.Hub.Config({{tex2jax: {{inlineMath: [['$','$']]}}}});
 </head>
 <body>
 <div id="wrapper">
-<div id="header"><span id="keepit">Keep It</span><span id="simplestupid">Simple, Stupid!</span></div>
+<div id="header"><span id="keepit">Keep It</span><span id="simplestupid">Simple, Stupid! =)</span></div>
 <div id="menuwrapper">{menu}</div>
 <div id="content">
 """.format(**fmt)
